@@ -1,0 +1,17 @@
+#!/bin/sh
+
+echo ">----- build packages -----<"
+sudo apt-get install build-essential ncurses-dev libncurses5-dev gettext autoconf
+
+echo ">----- install fish -----<"
+git clone https://github.com/fish-shell/fish-shell.git /tmp/fish_src
+cd /tmp/fish_src
+autoconf
+./configure
+make 
+sudo make install
+
+sudo echo "/usr/local/bin/fish" >> /etc/shells
+sudo chsh -s /usr/local/bin/fish
+
+curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.fish | fish
